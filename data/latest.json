@@ -1,8 +1,8 @@
 {
   "run_date": "2026-07-21",
   "sofr": {
-    "value": 3.59,
-    "as_of": "2026-07-17"
+    "value": 3.57,
+    "as_of": "2026-07-20"
   },
   "sifma": {
     "value": 2.91,
@@ -16,8 +16,8 @@
     "30y": 5.11
   },
   "computed": {
-    "sifma_sofr_ratio": 0.8106,
-    "sifma_vs_70pct_sofr": 0.397,
+    "sifma_sofr_ratio": 0.8151,
+    "sifma_vs_70pct_sofr": 0.411,
     "ust_2s10s": 0.39
   }
 }
