@@ -1,0 +1,39 @@
+name: daily
+
+on:
+  schedule:
+    - cron: '0 13 * * 1-5'   # 9am ET (8am during DST), after the prior day's SOFR prints
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-data
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install requests
+
+      - run: python scripts/fetch.py
+
+      - name: Commit new data
+        run: |
+          git add data
+          if git diff --staged --quiet; then
+            echo "No new data; skipping commit."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "data: $(date -u +%F)"
+            git push
+          fi
